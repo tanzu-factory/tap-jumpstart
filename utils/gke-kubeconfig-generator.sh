@@ -21,7 +21,9 @@ generate_gke_kubeconfig() {
   local COMPUTE_ZONE=""
   local PROJECT_NAME=""
   local IAM_USER_NAME=""
-  local returnedValue=$(get_user_input "CLUSTER_NAME")
+
+  get_user_input "CLUSTER_NAME"
+  returnedValue=$?
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for CLUSTER_NAME\n"
@@ -29,7 +31,9 @@ generate_gke_kubeconfig() {
     CLUSTER_NAME=$returnedValue
     printf "\nreceived CLUSTER_NAME=$CLUSTER_NAME\n"
   fi
-  local returnedValue=$(get_user_input "COMPUTE_ZONE")
+  
+  get_user_input "COMPUTE_ZONE"
+  returnedValue=$?
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for COMPUTE_ZONE\n"
@@ -37,7 +41,9 @@ generate_gke_kubeconfig() {
     COMPUTE_ZONE=$returnedValue
     printf "\nreceived COMPUTE_ZONE=$COMPUTE_ZONE\n"    
   fi
-  local returnedValue=$(get_user_input "PROJECT_NAME")
+
+  get_user_input "PROJECT_NAME"
+  returnedValue=$?
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for PROJECT_NAME\n"
@@ -45,7 +51,9 @@ generate_gke_kubeconfig() {
     PROJECT_NAME=$returnedValue
     printf "\nreceived PROJECT_NAME=$PROJECT_NAME\n"
   fi
-  local returnedValue=$(get_user_input "IAM_USER_NAME")
+  
+  get_user_input "IAM_USER_NAME"
+  returnedValue=$?
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for IAM_USER_NAME\n"
