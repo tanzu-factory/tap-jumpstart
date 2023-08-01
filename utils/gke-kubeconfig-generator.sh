@@ -7,12 +7,8 @@ get_user_input() {
   local input=""
   while [[ -z $input ]]; do
       read -p "input for $input_for: " input
-      if [[ -z $input ]]
-      then
-          printf "empty value is not allowed.\n"
-      fi
   done
-  return $input
+  echo $input
 }
 
 
@@ -22,44 +18,48 @@ generate_gke_kubeconfig() {
   local PROJECT_NAME=""
   local IAM_USER_NAME=""
 
-  get_user_input "CLUSTER_NAME"
-  returnedValue=$?
+  
+  returnedValue=$(get_user_input "CLUSTER_NAME")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for CLUSTER_NAME\n"
+    exit 1
   else
     CLUSTER_NAME=$returnedValue
-    printf "\nreceived CLUSTER_NAME=$CLUSTER_NAME\n"
+    printf "\user-input CLUSTER_NAME=$CLUSTER_NAME\n"
   fi
   
-  get_user_input "COMPUTE_ZONE"
-  returnedValue=$?
+  
+  returnedValue=$(get_user_input "COMPUTE_ZONE")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for COMPUTE_ZONE\n"
+    exit 1
   else
     COMPUTE_ZONE=$returnedValue
-    printf "\nreceived COMPUTE_ZONE=$COMPUTE_ZONE\n"    
+    printf "\user-input COMPUTE_ZONE=$COMPUTE_ZONE\n"    
   fi
 
-  get_user_input "PROJECT_NAME"
-  returnedValue=$?
+  
+  returnedValue=$(get_user_input "PROJECT_NAME")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for PROJECT_NAME\n"
+    exit 1
   else
     PROJECT_NAME=$returnedValue
-    printf "\nreceived PROJECT_NAME=$PROJECT_NAME\n"
+    printf "\user-input PROJECT_NAME=$PROJECT_NAME\n"
   fi
   
-  get_user_input "IAM_USER_NAME"
-  returnedValue=$?
+  
+  returnedValue=$(get_user_input "IAM_USER_NAME")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for IAM_USER_NAME\n"
+    exit 1
   else
     IAM_USER_NAME=$returnedValue
-    printf "\nreceived IAM_USER_NAME=$IAM_USER_NAME\n"
+    printf "\user-input IAM_USER_NAME=$IAM_USER_NAME\n"
   fi
 
   local cluster_endpoint=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(endpoint)")
