@@ -23,6 +23,7 @@ generate_gke_kubeconfig() {
   local IAM_USER_NAME=""
   local returnedValue=$(get_user_input "CLUSTER_NAME")
   if [[ -z $returnedValue ]]
+  then
     printf "\nerror: received invalid value for CLUSTER_NAME\n"
   else
     CLUSTER_NAME=$returnedValue
@@ -30,6 +31,7 @@ generate_gke_kubeconfig() {
   fi
   local returnedValue=$(get_user_input "COMPUTE_ZONE")
   if [[ -z $returnedValue ]]
+  then
     printf "\nerror: received invalid value for COMPUTE_ZONE\n"
   else
     COMPUTE_ZONE=$returnedValue
@@ -37,30 +39,23 @@ generate_gke_kubeconfig() {
   fi
   local returnedValue=$(get_user_input "PROJECT_NAME")
   if [[ -z $returnedValue ]]
+  then
     printf "\nerror: received invalid value for PROJECT_NAME\n"
   else
     PROJECT_NAME=$returnedValue
     printf "\nreceived PROJECT_NAME=$PROJECT_NAME\n"
-    
   fi
   local returnedValue=$(get_user_input "IAM_USER_NAME")
   if [[ -z $returnedValue ]]
+  then
     printf "\nerror: received invalid value for IAM_USER_NAME\n"
   else
     IAM_USER_NAME=$returnedValue
     printf "\nreceived IAM_USER_NAME=$IAM_USER_NAME\n"
-    
   fi
 
-  local cluster_endpoint=gcloud container clusters describe $CLUSTER_NAME \
-      --zone=$COMPUTE_ZONE \
-      --project=$PROJECT_NAME \
-      --format="value(endpoint)"
-
-  local ca_data=gcloud container clusters describe $CLUSTER_NAME \
-      --zone=$COMPUTE_ZONE \
-      --project=$PROJECT_NAME \
-      --format="value(masterAuth.clusterCaCertificate)"
+  local cluster_endpoint=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(endpoint)")
+  local ca_data=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(masterAuth.clusterCaCertificate)")
       
 
   cat > kubeconfig.yaml <<EOF
