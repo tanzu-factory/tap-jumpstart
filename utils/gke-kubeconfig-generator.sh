@@ -58,8 +58,7 @@ generate_gke_kubeconfig() {
   local ca_data=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(masterAuth.clusterCaCertificate)")
       
 
-  cat > kubeconfig.yaml <<EOF
-  apiVersion: v1
+  echo "apiVersion: v1
   kind: Config
   clusters:
   - name: $CLUSTER_NAME
@@ -82,7 +81,7 @@ generate_gke_kubeconfig() {
       cluster: $CLUSTER_NAME
       user: $IAM_USER_NAME
     name: $CLUSTER_NAME
-  current-context: $CLUSTER_NAME
-  EOF
+  current-context: $CLUSTER_NAME" > $CLUSTER_NAME-kubeconfig.yaml
+
 }
 
