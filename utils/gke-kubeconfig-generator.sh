@@ -85,3 +85,4 @@ generate_gke_kubeconfig() {
 
 }
 
+generate_gke_kubeconfig
