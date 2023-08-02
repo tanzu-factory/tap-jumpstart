@@ -15,7 +15,7 @@ get_user_input() {
 generate_gke_kubeconfig() {
   local CLUSTER_NAME=""
   local COMPUTE_ZONE=""
-  local PROJECT_NAME=""
+  local PROJECT_ID=""
   local IAM_USER_NAME=""
 
   
@@ -30,7 +30,7 @@ generate_gke_kubeconfig() {
   fi
   
   
-  returnedValue=$(get_user_input "COMPUTE_ZONE")
+  returnedValue=$(get_user_input "COMPUTE_ZONE (aka Region)")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for COMPUTE_ZONE\n"
@@ -41,18 +41,18 @@ generate_gke_kubeconfig() {
   fi
 
   
-  returnedValue=$(get_user_input "PROJECT_NAME")
+  returnedValue=$(get_user_input "PROJECT_ID")
   if [[ -z $returnedValue ]]
   then
-    printf "\nerror: received invalid value for PROJECT_NAME\n"
+    printf "\nerror: received invalid value for PROJECT_ID\n"
     exit 1
   else
-    PROJECT_NAME=$returnedValue
-    printf "PROJECT_NAME=$PROJECT_NAME...ok\n\n"
+    PROJECT_ID=$returnedValue
+    printf "PROJECT_ID=$PROJECT_ID...ok\n\n"
   fi
   
   
-  returnedValue=$(get_user_input "IAM_USER_NAME")
+  returnedValue=$(get_user_input "IAM_USER_NAME (aka Service Account)")
   if [[ -z $returnedValue ]]
   then
     printf "\nerror: received invalid value for IAM_USER_NAME\n"
@@ -64,9 +64,9 @@ generate_gke_kubeconfig() {
 
 
   printf "\nGetting cluster endpoint..."
-  local cluster_endpoint=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(endpoint)")
+  local cluster_endpoint=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_ID --format="value(endpoint)")
   printf "$cluster_endpoint...ok.\n\nGetting Cluster CaCertificate..."
-  local ca_data=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_NAME --format="value(masterAuth.clusterCaCertificate)")
+  local ca_data=$(gcloud container clusters describe $CLUSTER_NAME --zone=$COMPUTE_ZONE --project=$PROJECT_ID --format="value(masterAuth.clusterCaCertificate)")
   printf "(dacted)...ok\n\nGenerating kubeconfig file: $CLUSTER_NAME.yaml"
 
 
