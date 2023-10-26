@@ -8,6 +8,9 @@ metadata:
 spec:
   targets:
     - ./components/tap-gui.yaml
+    - ./components/tap-apps.yaml
     - ./groups/default-org.yaml
     - ./systems/tap-gui-system.yaml
+    - ./systems/tap-apps-system.yaml
     - ./domains/tap-gui-domain.yaml
+    - ./domains/tap-apps-domain.yaml

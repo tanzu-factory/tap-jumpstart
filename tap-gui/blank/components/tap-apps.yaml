@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tap-gui-component
+  description: Tanzu Application Platform GUI Component
+  tags:
+    - v1alpha1
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=tap-apps'
+    'backstage.io/techdocs-ref': dir:.
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team
+  system: tap-apps
