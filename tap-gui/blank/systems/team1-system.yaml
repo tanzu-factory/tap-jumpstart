@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: team1
+  description: Tanzu Application Platform Team2 System
+  annotations:
+    'backstage.io/techdocs-ref': dir:.
+spec:
+  owner: team1-team
+  domain: team1-domain

@@ -9,8 +9,14 @@ spec:
   targets:
     - ./components/tap-gui.yaml
     - ./components/tap-apps.yaml
+    - ./components/team1.yaml
+    - ./components/team2.yaml
     - ./groups/default-org.yaml
     - ./systems/tap-gui-system.yaml
     - ./systems/tap-apps-system.yaml
+    - ./systems/team1-system.yaml
+    - ./systems/team2-system.yaml
     - ./domains/tap-gui-domain.yaml
     - ./domains/tap-apps-domain.yaml
+    - ./domains/team1-domain.yaml
+    - ./domains/team2-domain.yaml
